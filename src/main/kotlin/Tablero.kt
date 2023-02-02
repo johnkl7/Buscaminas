@@ -92,7 +92,7 @@ class Tablero (size: Int, dificultad: Int) {
     }
 
 
-    fun aplicaMinas(posicion: String): ArrayList<ArrayList<Casilla>> { //Esta funcion utiliza la funcion calculaMinas para calcular las minas y después las aplica a la variable minas de la casilla escogida por el usuario.
+    fun aplicaMinas(posicion: String) { //Esta funcion utiliza la funcion calculaMinas para calcular las minas y después las aplica a la variable minas de la casilla escogida por el usuario.
 
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
@@ -102,7 +102,6 @@ class Tablero (size: Int, dificultad: Int) {
                 }
             }
         }
-        return tablero
     }
 
 
@@ -143,33 +142,33 @@ class Tablero (size: Int, dificultad: Int) {
 
     fun minasRestantes(): ArrayList<Int> { //Esta función sirve para calcular cuando el jugador ha ganado la partida y no quedan mas posiciones que elejir que no contengan minas.
 
-        val array2 = arrayListOf<Int>()
+        val arrayParaComprobarMinas = arrayListOf<Int>()
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
                 if (!tablero[i][y].isMine && tablero[i][y].esPosicion) {
                     val ts = tablero[i][y]
                     if (!ts.isOpened) {
-                        array2.add(1)
+                        arrayParaComprobarMinas.add(1)
                     }
                 }
             }
         }
-        return array2
+        return arrayParaComprobarMinas
     }
 
     fun checkIfExists(posicion: String): Int { // Esta funcion  se asegura de que la posicion introducida por el usuario exista.
 
-        val array = arrayListOf("B", "H", "b", "h")
+        val arrayConPosicionesAccesibles = arrayListOf("B", "H", "b", "h")
         var contador = 0
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
                 if (tablero[i][y].esPosicion) {
-                    array.add(tablero[i][y].id)
-                    array.add(tablero[i][y].id.lowercase())
+                    arrayConPosicionesAccesibles.add(tablero[i][y].id)
+                    arrayConPosicionesAccesibles.add(tablero[i][y].id.lowercase())
                 }
             }
         }
-        if (posicion !in array) {
+        if (posicion !in arrayConPosicionesAccesibles) {
             contador++
         }
         return contador
@@ -184,7 +183,7 @@ class Tablero (size: Int, dificultad: Int) {
         var contadorDeMinas = 0
         for (q in i - 1..i + 1) {
             for (x in y - 1..y + 1) {
-                try {
+
                     if (tablero[q][x].isMine) {
                         try {
                             contadorDeMinas++
@@ -195,14 +194,8 @@ class Tablero (size: Int, dificultad: Int) {
                             continue
                         }
                     }
-                } catch (e: IndexOutOfBoundsException) {
-                    continue
-                }
-
             }
-
         }
-
     }
 
     fun printaTablero() { //Esta funcion hace un print elaborado del tablero.
@@ -213,13 +206,13 @@ class Tablero (size: Int, dificultad: Int) {
                 if (tablero[i][y].esPosicion) {
                     if (tablero[i][y].isFlagged) {
                         val bandera = tablero[i][y].minas
-                        print("\u001B[43m\u001B[30m\u001B[1m$bandera\u001B[0m")
+                        print("\u001B[43m\u001B[30m\u001B[1m$bandera\u001B[0m") //PRINTA DE COLOR AMARILLO LAS POSICIONES QUE TIENEN UNA BANDERA
                         print("|")
-                    } else if (!tablero[i][y].isFlagged && tablero[i][y].isOpened) {
+                    } else if (!tablero[i][y].isFlagged && tablero[i][y].isOpened) {  //PRINTA DE COLOR VERDE LAS POSICIONES DESPEJADAS EXITOSAMENTE.
                         val minas = tablero[i][y].minas
                         print("\u001B[42m\u001B[30m\u001B[1m$minas\u001B[0m")
                         print("|")
-                    } else if (!tablero[i][y].isFlagged && !tablero[i][y].isOpened) {
+                    } else if (!tablero[i][y].isFlagged && !tablero[i][y].isOpened) { //PRINTA LAS POSICIONES AUN NO ELEJIDAS DE MANERA NORMAL.
                         val minasCerradas = tablero[i][y].minas
                         print(minasCerradas)
                         print("|")
