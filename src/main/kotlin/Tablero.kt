@@ -20,13 +20,9 @@ class Tablero (size: Int, dificultad: Int) {
                     newTablero[i].add(Casilla(letras[contador1], i, y, isMine = false, isOpened = true, false))
                 } else if (i == 0) {
                     newTablero[i].add(Casilla("#", i, y, isMine = false, isOpened = true, false))
-                } /*else if (i == size + 1) {
-                    newTablero[i].add(Casilla("#", i, y, isMine = false, isOpened = true, false))
-                }*/ else if (y == 0) {
+                }  else if (y == 0) {
                     newTablero[i].add(Casilla(contador2.toString(), i, y, isMine = false, isOpened = true, false))
-                } /*else if (y == size + 1) {
-                    newTablero[i].add(Casilla("#", i, y, isMine = false, isOpened = true, false))
-                }*/ else {
+                } else {
                     //LAS DIFICULTADES LAS ESTABLEZCO HACIENDO UN .RANDOM DE UN RANGO DE NUMEROS Y ESTABLEZCO LAS MINAS CUANDO ME DA 0.
                     if (dificultad == 1) {
                         val isMine = (0..7).random() //DIFICULTAD MAS FACIL
@@ -111,11 +107,10 @@ class Tablero (size: Int, dificultad: Int) {
 
     fun check(posicion: String): Int { //Esta funcion comprueba varias cosas: si la posicion es una mina, si no es una mina, y si ya has elegido la casilla anteriormente.
 
-        val array = arrayListOf<String>()
         var contador = 0
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
-                array.add(tablero[i][y].id)
+
                 if (posicion == tablero[i][y].id && !tablero[i][y].isMine && !tablero[i][y].isOpened) {
                     contador = 1
                 } else if (posicion == tablero[i][y].id && !tablero[i][y].isMine && tablero[i][y].isOpened) {
@@ -132,18 +127,17 @@ class Tablero (size: Int, dificultad: Int) {
         return contador
     }
 
-    fun marcaBanderas(posicion: String): ArrayList<ArrayList<Casilla>> {  //Esta funcion marca banderas en el tablero.
+    fun marcaBanderas(posicion: String) {  //Esta funcion marca banderas en el tablero.
 
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
                 val aMinuscula = tablero[i][y].id.lowercase()
                 if (posicion == tablero[i][y].id ||posicion == aMinuscula) {
                     tablero[i][y].isFlagged = true
-                    /*  tablero[i][y].bandera = "\u001B[43m\u001B[30m\u001B[4mB\u001B[0m"*/
                 }
             }
         }
-        return tablero
+
     }
 
     fun minasRestantes(): ArrayList<Int> { //Esta función sirve para calcular cuando el jugador ha ganado la partida y no quedan mas posiciones que elejir que no contengan minas.
@@ -184,7 +178,7 @@ class Tablero (size: Int, dificultad: Int) {
     fun calculaMinas(
         i: Int,
         y: Int
-    ): ArrayList<ArrayList<Casilla>> { //Esta función itera alrededor de la posicion que el jugador ha introducido y calcula las minas que hay.
+    ) { //Esta función itera alrededor de la posicion que el jugador ha introducido y calcula las minas que hay.
         tablero[i][y].isOpened = true
         var contadorDeMinas = 0
         for (q in i - 1..i + 1) {
@@ -207,7 +201,7 @@ class Tablero (size: Int, dificultad: Int) {
             }
 
         }
-        return tablero
+
     }
 
     fun printaTablero() { //Esta funcion hace un print elaborado del tablero.
