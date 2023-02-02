@@ -2,7 +2,7 @@ class Casilla (var id: String, val i: Int, val j: Int, var isMine: Boolean, var 
 
     var isFlagged = false
     var minas = 0
-    /*var bandera = ""*/
+
 
 
     // ID : SIRVE PARA IDENTIFICAR CADA CASILLA, ESTE ID SERA EL QUE INTRODUCIRA EL USUARIO EN LA TERMINAL (A1,A5...)

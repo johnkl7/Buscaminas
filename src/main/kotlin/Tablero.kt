@@ -7,8 +7,8 @@ class Tablero (size: Int, dificultad: Int) {
 
     init {
 
-        var contador1 = -1
-        var contador2 = 0
+        var id1 = -1
+        var id2 = 0
         val newTablero = arrayListOf<ArrayList<Casilla>>()
         val letras = arrayListOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
@@ -17,41 +17,41 @@ class Tablero (size: Int, dificultad: Int) {
             newTablero.add(arrayListOf())
             for (y in 0..size) {
                 if (i == 0 && y != 0) {
-                    newTablero[i].add(Casilla(letras[contador1], i, y, isMine = false, isOpened = true, false))
+                    newTablero[i].add(Casilla(letras[id1], i, y, isMine = false, isOpened = true, false))
                 } else if (i == 0) {
                     newTablero[i].add(Casilla("#", i, y, isMine = false, isOpened = true, false))
                 }  else if (y == 0) {
-                    newTablero[i].add(Casilla(contador2.toString(), i, y, isMine = false, isOpened = true, false))
+                    newTablero[i].add(Casilla(id2.toString(), i, y, isMine = false, isOpened = true, false))
                 } else {
                     //LAS DIFICULTADES LAS ESTABLEZCO HACIENDO UN .RANDOM DE UN RANGO DE NUMEROS Y ESTABLEZCO LAS MINAS CUANDO ME DA 0.
                     if (dificultad == 1) {
                         val isMine = (0..7).random() //DIFICULTAD MAS FACIL
                         if (isMine == 0) {
-                            newTablero[i].add(Casilla(contador2.toString(), i, y, isMine = true, false, true))
+                            newTablero[i].add(Casilla(id2.toString(), i, y, isMine = true, false, true))
                         } else {
-                            newTablero[i].add(Casilla(contador2.toString(), i, y, isMine = false, false, true))
+                            newTablero[i].add(Casilla(id2.toString(), i, y, isMine = false, false, true))
                         }
                     }
                     if (dificultad == 2) { //DIFICULTAD INTERMEDIA
                         val isMine = (0..4).random()
                         if (isMine == 0) {
-                            newTablero[i].add(Casilla(contador2.toString(), i, y, isMine = true, false, true))
+                            newTablero[i].add(Casilla(id2.toString(), i, y, isMine = true, false, true))
                         } else {
-                            newTablero[i].add(Casilla(contador2.toString(), i, y, isMine = false, false, true))
+                            newTablero[i].add(Casilla(id2.toString(), i, y, isMine = false, false, true))
                         }
                     }
                     if (dificultad == 3) { //DIFICULTAD MAS DIFICIL.
                         val isMine = (0..1).random()
                         if (isMine == 0) {
-                            newTablero[i].add(Casilla(contador2.toString(), i, y, isMine = true, false, true))
+                            newTablero[i].add(Casilla(id2.toString(), i, y, isMine = true, false, true))
                         } else {
-                            newTablero[i].add(Casilla(contador2.toString(), i, y, isMine = false, false, true))
+                            newTablero[i].add(Casilla(id2.toString(), i, y, isMine = false, false, true))
                         }
                     }
                 }
-                contador1++
+                id1++
             }
-            contador2++
+            id2++
         }
 
 
@@ -73,7 +73,7 @@ class Tablero (size: Int, dificultad: Int) {
         tablero = newTablero
     }
 
-    fun posicionMinas() { //Esta funcion printa el tablero con las posiciones con minas una vez la partida ha acabado.
+    fun posicionMinas() { //ESTA FUNCION PRINTA LAS MINAS EN EL TABLERO UNA VEZ LA PARTIDA SE HA ACABADO.
 
         for (i in 0 until tablero.size) {
             print("|")
@@ -105,20 +105,20 @@ class Tablero (size: Int, dificultad: Int) {
     }
 
 
-    fun checkSiEsMina(posicion: String): Int { //Esta funcion comprueba varias cosas: si la posicion es una mina, si no es una mina, y si ya has elegido la casilla anteriormente.
+    fun checkSiEsMina(posicion: String): Int { //Esta funcion comprueba varias cosas: si la posicion es una mina, si no es una mina, si ya has elegido la casilla anteriormente y si quieres abrir el menu de ayuda.
 
-        var contador = 0
+        var contador = 0            // UTILIZO UN CONTADOR PARA OBTENER EL RESULTADO DE LAS CONDICIONES
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
 
-                if (posicion == tablero[i][y].id && !tablero[i][y].isMine && !tablero[i][y].isOpened) {
+                if (posicion == tablero[i][y].id && !tablero[i][y].isMine && !tablero[i][y].isOpened) {  // NO ES UNA MINA. OBTENDREMOS SU NUMERO DE MINAS MAS ADELANTE CON APLICAMINAS.
                     contador = 1
-                } else if (posicion == tablero[i][y].id && !tablero[i][y].isMine && tablero[i][y].isOpened && posicion != "B") {
+                } else if (posicion == tablero[i][y].id && !tablero[i][y].isMine && tablero[i][y].isOpened && posicion != "B") { // ESTA POSICION NO ES UNA MINA PERO YA SE HA ABIERTO ANTERIORMENTE.
                     contador = 2
-                } else if (posicion == "H") {
+                } else if (posicion == "H") { // MENU DE AYUDA.
                     contador = 3
                 }
-                else if (posicion == tablero[i][y].id && tablero[i][y].isMine && !tablero[i][y].isOpened){
+                else if (posicion == tablero[i][y].id && tablero[i][y].isMine && !tablero[i][y].isOpened){ // ES UNA MINA. SE ACABO LA PARTIDA
                     contador = 4
                 }
 
@@ -127,7 +127,7 @@ class Tablero (size: Int, dificultad: Int) {
         return contador
     }
 
-    fun marcaBanderas(posicion: String) {  //Esta funcion marca banderas en el tablero.
+    fun marcaBanderas(posicion: String) {  //ESTA FUNCION MARCA BANDERAS EN EL TABLERO CAMBIANDO EL isFlagged A TRUE.
 
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
@@ -140,7 +140,7 @@ class Tablero (size: Int, dificultad: Int) {
 
     }
 
-    fun minasRestantes(): ArrayList<Int> { //Esta función sirve para calcular cuando el jugador ha ganado la partida y no quedan mas posiciones que elejir que no contengan minas.
+    fun minasRestantes(): ArrayList<Int> { //ESTA FUNCION SIRVE PARA SABER CUANTAS POSICIONES QUE NO SON MINA QUEDAN POR ABRIR. DE ESTA MANERA SE CUANDO EL JUGADOR HA GANADO LA PARTIDA.
 
         val arrayParaComprobarMinas = arrayListOf<Int>()
         for (i in 0 until tablero.size) {
@@ -183,7 +183,7 @@ class Tablero (size: Int, dificultad: Int) {
         var contadorDeMinas = 0
         for (q in i - 1..i + 1) {
             for (x in y - 1..y + 1) {
-
+                try {
                     if (tablero[q][x].isMine) {
                         try {
                             contadorDeMinas++
@@ -194,6 +194,9 @@ class Tablero (size: Int, dificultad: Int) {
                             continue
                         }
                     }
+                } catch (e: IndexOutOfBoundsException) {
+                    continue
+                }
             }
         }
     }
@@ -244,7 +247,7 @@ class Tablero (size: Int, dificultad: Int) {
     fun transformaPrimeraMina(
         posicion: String,
         contadorDePantallas: Int
-    ) {  //Con esta funcion la primera posicion escogida por el jugador  nunca puede ser una mina.
+    ) {  //Con esta funcion la primera posicion escogida por el jugador  nunca puede ser una mina. contador de pantallas a 0 quiere decir primera ronda.
 
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size){
@@ -252,9 +255,9 @@ class Tablero (size: Int, dificultad: Int) {
                 if (posicion == tablero[i][y].id || posicion == aMinuscula && tablero[i][y].isMine && contadorDePantallas == 0) {
                     tablero[i][y].isMine = false
                 }
-        }}
+        }
+        }
     }
-
 
 
 }
