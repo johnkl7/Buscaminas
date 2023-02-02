@@ -44,7 +44,7 @@ class Tablero(size: Int, dificultad: Int) {
             newTablero.add(arrayListOf())
             for (y in 0..size) {
                 if (i == 0 && y != 0) {
-                    newTablero[i].add(Casilla(letras[id1], i, y, isMine = false, isOpened = true, false))
+                    newTablero[i].add(Casilla(letras[id1], i, y, isMine = false, isOpened = true, false)) //abro las casillas que pertenecen al borde, asi no necesito abrirlas despues.
                 } else if (i == 0) {
                     newTablero[i].add(Casilla("#", i, y, isMine = false, isOpened = true, false))
                 } else if (y == 0) {

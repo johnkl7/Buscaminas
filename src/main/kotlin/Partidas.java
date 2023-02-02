@@ -60,18 +60,18 @@ class Partidas {
                 mensajes();
                 contadorPantallas++;
             }
-            if (checkSiEsMina == 4) {
+            else if (checkSiEsMina == 4) {
                 System.out.println("\033[1;31m!!!!!!!!!!!!BOOOOOOOOOOOOOOOM¡¡¡¡¡¡¡¡¡¡¡¡¡¡\033[0m");
                 tablero.posicionMinas();
                 System.out.println("La posicion" + " " + "\033[1;31m" + posicion + "\033[0m" + " " + "contenia una mina, has perdido " + nombre);
                 System.out.println("\033[1m\033[43m\033[30mHas superado" + " " + contadorPantallas + " " + "pantalla/s.\033[0m");
                 break;
             }
-            if (checkSiEsMina == 2) {
+            else if (checkSiEsMina == 2) {
                 System.out.println("Ya has elejido esta casilla anteriormente");
                 System.out.println();
             }
-            if (checkSiEsMina == 3) {
+           else if (checkSiEsMina == 3) {
                 System.out.println("\u001B[43m\u001B[30m\u001B[1mMENU DE AYUDA\u001B[0m");
                 System.out.println("La partida consta de pantallas que tienes que ir superando, el objetivo es destapar toda casilla que no contenga una mina.");
                 System.out.println("El juego consta de 3 dificultades: 1 facil, 2 intermedia, 3 dificil. La diferencia entre ellas es la cantidad de minas que contendra el tablero.");
