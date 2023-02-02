@@ -54,8 +54,9 @@ class Tablero (size: Int, dificultad: Int) {
             contador2++
         }
 
-        var changeId = 0
 
+        //ANTERIOMENTE HE ASIGNADO UN NUMERO AL ID DE CADA CASILLA PERO NO HE PODIDO ASIGNARLE LA LETRA, ASI QUE AQUI LE ASIGNO LA LETRA DE TAL MANERA QUE CADA ID QUEDA DE LA SIGUIENTE MANERA: A1,B5,C2 ETC..
+        var changeId = 0
         for (u in 0 until newTablero.size) {
             for (l in 0 until newTablero[0].size) {
                 if (newTablero[u][l].esPosicion) {
@@ -113,7 +114,7 @@ class Tablero (size: Int, dificultad: Int) {
 
                 if (posicion == tablero[i][y].id && !tablero[i][y].isMine && !tablero[i][y].isOpened) {
                     contador = 1
-                } else if (posicion == tablero[i][y].id && !tablero[i][y].isMine && tablero[i][y].isOpened) {
+                } else if (posicion == tablero[i][y].id && !tablero[i][y].isMine && tablero[i][y].isOpened && posicion != "B") {
                     contador = 2
                 } else if (posicion == "H") {
                     contador = 3

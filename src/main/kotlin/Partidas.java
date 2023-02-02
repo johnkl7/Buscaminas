@@ -24,7 +24,7 @@ class Partidas  {
             }
             ArrayList<Integer> minasRestantes = tablero.minasRestantes();
             if (minasRestantes.isEmpty()) {
-                System.out.println("Has ganado $nombre!");
+                System.out.println("Has ganado" + " " + nombre);
                 System.out.println("Aqui estaban las minas: ");
                 tablero.posicionMinas();
                 break;
@@ -47,7 +47,11 @@ class Partidas  {
             else if (posicion.equals("b")) {
                 System.out.println("Donde quieres colocar la bandera" + " " + nombre + "?");
                 String bandera = capt.nextLine();
-                tablero.marcaBanderas(bandera);
+                int checkIfExistsForFlag = tablero.checkIfExists(bandera);
+                if (checkIfExistsForFlag != 0) {
+                    System.out.println("La posición introducida no existe, vuelve a probar");
+                }
+                else tablero.marcaBanderas(bandera);
             }
             int check = tablero.check(posicion.toUpperCase());
 
@@ -59,7 +63,8 @@ class Partidas  {
             if (check == 4) {
                 System.out.println("!!!!!!!!!!!!BOOOOOOOOOOOOOOOM¡¡¡¡¡¡¡¡¡¡¡¡¡¡");
                 tablero.posicionMinas();
-                System.out.println(nombre + " " + "has superado" + " " + contadorPantallas + " " + "pantallas.");
+                System.out.println("La posicion " + " " + posicion + " " + "contenia una mina, has perdido " + nombre);
+                System.out.println("Has superado" + " " + contadorPantallas + " " + "pantallas.");
                 break;
             }
             if (check == 2) {
