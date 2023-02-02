@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Partidas  {
-    /*val size = tablero.size*/
 
-    static Integer contadorPantallas = 0;
+class Partidas  {
+    //static Integer contadorPantallas = 0;
     Tablero tablero;
+    static Integer contadorPantallas = 0;
 
     public Partidas (Tablero tablero) {
         this.tablero = tablero;
@@ -13,8 +13,7 @@ class Partidas  {
 
     public static void laPartida (Tablero tablero, String nombre) throws InterruptedException {
         Scanner capt = new Scanner(System.in);
-        /*if (contadorPantallas == 0){
-            slowPrint("Cargando partida...");}*/
+
         while (true) {
             tablero.posicionMinas();
             ArrayList<Integer> noHayMinas = tablero.noHayMinas();
@@ -34,32 +33,30 @@ class Partidas  {
             tablero.printaTablero();
 
             String posicion = capt.nextLine();
+            posicion = posicion.toLowerCase();
 
-            //String posicionToLowerCase = capt.nextLine().toLowerCase();
+
 
             int checkIfExists = tablero.checkIfExists(posicion);
 
             tablero.transformaPrimeraMina(posicion, contadorPantallas);
             if (checkIfExists != 0) {
                 System.out.println("La posición introducida no existe, vuelve a probar");
-                laPartida(tablero,nombre);
-                /*tablero.partida(mapa, nombre)*/
             }
 
-            else if (posicion.equals("B") || posicion.equals("b")) {
+            else if (posicion.equals("b")) {
                 System.out.println("Donde quieres colocar la bandera" + " " + nombre + "?");
                 String bandera = capt.nextLine();
                 tablero.marcaBanderas(bandera);
             }
+            int check = tablero.check(posicion.toUpperCase());
 
-            Integer check = tablero.check(posicion.toUpperCase());
             if (check == 1) {
                 tablero.aplicaMinas(posicion);
-
                 System.out.println("Buena elección...");
                 contadorPantallas++;
             }
-            if (check == 0) {
+            if (check == 4) {
                 System.out.println("!!!!!!!!!!!!BOOOOOOOOOOOOOOOM¡¡¡¡¡¡¡¡¡¡¡¡¡¡");
                 tablero.posicionMinas();
                 System.out.println(nombre + " " + "has superado" + " " + contadorPantallas + " " + "pantallas.");
@@ -80,14 +77,12 @@ class Partidas  {
         }
     }
 
-    /*fun slowPrint (a:String)  {
 
-        for (i in a){
-            print(i)
-            Thread.sleep(65)
+    public static void printLento (String frase) throws InterruptedException {
+        for (int i = 0; i < frase.length();i++){
+            System.out.print(frase.charAt(i));
+            Thread.sleep(50);
         }
-        println()
-    }*/
-
-
+        System.out.println();
+    }
 }

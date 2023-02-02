@@ -10,7 +10,7 @@ class Tablero (size: Int, dificultad: Int) {
         var contador1 = -1
         var contador2 = 0
         val newTablero = arrayListOf<ArrayList<Casilla>>()
-        val letras = arrayListOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L")
+        val letras = arrayListOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
 
         for (i in 0..size) {
@@ -123,6 +123,10 @@ class Tablero (size: Int, dificultad: Int) {
                 } else if (posicion == "H") {
                     contador = 3
                 }
+                else if (posicion == tablero[i][y].id && tablero[i][y].isMine && !tablero[i][y].isOpened){
+                    contador = 4
+                }
+
             }
         }
         return contador
@@ -254,30 +258,15 @@ class Tablero (size: Int, dificultad: Int) {
         contadorDePantallas: Int
     ) {  //Con esta funcion la primera posicion escogida por el jugador  nunca puede ser una mina.
 
-        for (i in 0..tablero.size - 1) {
-            for (y in 0..tablero[0].size - 1)
-                if (posicion == tablero[i][y].id && tablero[i][y].isMine && contadorDePantallas == 0) {
+        for (i in 0 until tablero.size) {
+            for (y in 0 until tablero[0].size){
+                val aMinuscula = tablero[i][y].id.lowercase()
+                if (posicion == tablero[i][y].id || posicion == aMinuscula && tablero[i][y].isMine && contadorDePantallas == 0) {
                     tablero[i][y].isMine = false
                 }
-        }
+        }}
     }
 
-    fun quedaSoloUna() {
-
-        val listaConMinas = arrayListOf<Int>()
-        var contadorDeMinas = 0
-        for (i in 0..tablero.size - 1) {
-            for (y in 0..tablero[0].size - 1) {
-                if (!tablero[i][y].isMine) {
-                    listaConMinas.add(1)
-                }
-                if (tablero[i][y].isMine) {
-                    contadorDeMinas++
-                }
-            }
-        }
-    }
 
 
 }
-
