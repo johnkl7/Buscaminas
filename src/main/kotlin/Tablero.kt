@@ -1,6 +1,6 @@
 import java.lang.IndexOutOfBoundsException
 
-class Tablero (size: Int, dificultad: Int) {
+class Tablero(size: Int, dificultad: Int) {
 
     var tablero = arrayListOf<ArrayList<Casilla>>()
 
@@ -10,7 +10,34 @@ class Tablero (size: Int, dificultad: Int) {
         var id1 = -1
         var id2 = 0
         val newTablero = arrayListOf<ArrayList<Casilla>>()
-        val letras = arrayListOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+        val letras = arrayListOf(
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"
+        )
 
 
         for (i in 0..size) {
@@ -20,7 +47,7 @@ class Tablero (size: Int, dificultad: Int) {
                     newTablero[i].add(Casilla(letras[id1], i, y, isMine = false, isOpened = true, false))
                 } else if (i == 0) {
                     newTablero[i].add(Casilla("#", i, y, isMine = false, isOpened = true, false))
-                }  else if (y == 0) {
+                } else if (y == 0) {
                     newTablero[i].add(Casilla(id2.toString(), i, y, isMine = false, isOpened = true, false))
                 } else {
                     //LAS DIFICULTADES LAS ESTABLEZCO HACIENDO UN .RANDOM DE UN RANGO DE NUMEROS Y ESTABLEZCO LAS MINAS CUANDO ME DA 0.
@@ -117,8 +144,7 @@ class Tablero (size: Int, dificultad: Int) {
                     contador = 2
                 } else if (posicion == "H") { // MENU DE AYUDA.
                     contador = 3
-                }
-                else if (posicion == tablero[i][y].id && tablero[i][y].isMine && !tablero[i][y].isOpened){ // ES UNA MINA. SE ACABO LA PARTIDA
+                } else if (posicion == tablero[i][y].id && tablero[i][y].isMine && !tablero[i][y].isOpened) { // ES UNA MINA. SE ACABO LA PARTIDA
                     contador = 4
                 }
 
@@ -132,7 +158,7 @@ class Tablero (size: Int, dificultad: Int) {
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
                 val aMinuscula = tablero[i][y].id.lowercase()
-                if (posicion == tablero[i][y].id ||posicion == aMinuscula) {
+                if (posicion == tablero[i][y].id || posicion == aMinuscula) {
                     tablero[i][y].isFlagged = true
                 }
             }
@@ -250,12 +276,12 @@ class Tablero (size: Int, dificultad: Int) {
     ) {  //Con esta funcion la primera posicion escogida por el jugador  nunca puede ser una mina. contador de pantallas a 0 quiere decir primera ronda.
 
         for (i in 0 until tablero.size) {
-            for (y in 0 until tablero[0].size){
+            for (y in 0 until tablero[0].size) {
                 val aMinuscula = tablero[i][y].id.lowercase()
                 if (posicion == tablero[i][y].id || posicion == aMinuscula && tablero[i][y].isMine && contadorDePantallas == 0) {
                     tablero[i][y].isMine = false
                 }
-        }
+            }
         }
     }
 
