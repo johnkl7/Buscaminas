@@ -106,7 +106,7 @@ class Tablero (size: Int, dificultad: Int) {
     }
 
 
-    fun check(posicion: String): Int { //Esta funcion comprueba varias cosas: si la posicion es una mina, si no es una mina, y si ya has elegido la casilla anteriormente.
+    fun checkSiEsMina(posicion: String): Int { //Esta funcion comprueba varias cosas: si la posicion es una mina, si no es una mina, y si ya has elegido la casilla anteriormente.
 
         var contador = 0
         for (i in 0 until tablero.size) {

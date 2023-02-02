@@ -15,7 +15,7 @@ class Partidas  {
         Scanner capt = new Scanner(System.in);
 
         while (true) {
-            tablero.posicionMinas();
+
             ArrayList<Integer> noHayMinas = tablero.noHayMinas();
             if (noHayMinas.isEmpty()) {
                 tablero.posicionMinas();
@@ -53,25 +53,25 @@ class Partidas  {
                 }
                 else tablero.marcaBanderas(bandera);
             }
-            int check = tablero.check(posicion.toUpperCase());
+            int checkSiEsMina = tablero.checkSiEsMina(posicion.toUpperCase());
 
-            if (check == 1) {
+            if (checkSiEsMina == 1) {
                 tablero.aplicaMinas(posicion);
                 System.out.println("Buena elección...");
                 contadorPantallas++;
             }
-            if (check == 4) {
+            if (checkSiEsMina == 4) {
                 System.out.println("!!!!!!!!!!!!BOOOOOOOOOOOOOOOM¡¡¡¡¡¡¡¡¡¡¡¡¡¡");
                 tablero.posicionMinas();
                 System.out.println("La posicion " + " " + posicion + " " + "contenia una mina, has perdido " + nombre);
-                System.out.println("Has superado" + " " + contadorPantallas + " " + "pantallas.");
+                System.out.println("Has superado" + " " + contadorPantallas + " " + "pantalla/s.");
                 break;
             }
-            if (check == 2) {
+            if (checkSiEsMina == 2) {
                 System.out.println("Ya has elejido esta casilla anteriormente");
                 System.out.println();
             }
-            if (check == 3){
+            if (checkSiEsMina == 3){
                 System.out.println("\u001B[43m\u001B[30m\u001B[1mMENU DE AYUDA\u001B[0m");
                 System.out.println("La partida consta de pantallas que tienes que ir superando, el objetivo es destapar toda casilla que no contenga una mina.");
                 System.out.println("El juego consta de 3 dificultades: 1 facil, 2 intermedia, 3 dificil. La diferencia entre ellas es la cantidad de minas que contendra el tablero.");
