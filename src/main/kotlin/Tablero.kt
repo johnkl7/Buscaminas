@@ -172,7 +172,6 @@ class Tablero(size: Int, dificultad: Int) {
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
                 if (!tablero[i][y].isMine && tablero[i][y].esPosicion) {
-                    //val ts = tablero[i][y]
                     if (!tablero[i][y].isOpened) {
                         arrayParaComprobarMinas.add(1)
                     }
