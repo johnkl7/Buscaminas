@@ -172,8 +172,8 @@ class Tablero(size: Int, dificultad: Int) {
         for (i in 0 until tablero.size) {
             for (y in 0 until tablero[0].size) {
                 if (!tablero[i][y].isMine && tablero[i][y].esPosicion) {
-                    val ts = tablero[i][y]
-                    if (!ts.isOpened) {
+                    //val ts = tablero[i][y]
+                    if (!tablero[i][y].isOpened) {
                         arrayParaComprobarMinas.add(1)
                     }
                 }
@@ -213,8 +213,8 @@ class Tablero(size: Int, dificultad: Int) {
                     if (tablero[q][x].isMine) {
                         try {
                             contadorDeMinas++
-                            val tt = tablero[i][y].minas + contadorDeMinas
-                            tablero[i][y].minas = tt
+                            val minasTotales = tablero[i][y].minas + contadorDeMinas
+                            tablero[i][y].minas = minasTotales
                             contadorDeMinas = 0
                         } catch (e: IndexOutOfBoundsException) {
                             continue
